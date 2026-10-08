@@ -13,8 +13,8 @@ export interface PersonProfile {
   readonly subtitle: string;
   /** Official professional portrait. Never replaced by a generated or stock image. */
   readonly portrait: ImageAsset | null;
-  /** Larger portrait used on the dedicated page. */
-  readonly pagePortrait: ImageAsset | null;
+  /** Square crop for structured data and social previews, where a 1:1 image is expected. */
+  readonly squarePortrait: ImageAsset | null;
   readonly summary: readonly string[];
   readonly biography: readonly string[];
   readonly role: string | null;
@@ -23,10 +23,9 @@ export interface PersonProfile {
 }
 
 /*
- * Copy, numbers and portraits follow the visual mock delivered on 2026-10-07.
+ * Portraits: official photographs supplied on 2026-10-08.
+ * Copy and numbers follow the visual mock delivered on 2026-10-07.
  * TODO: validar com Jamil Albuquerque antes da publicação: biografia, números e a autoria da frase.
- * TODO: confirmar que os retratos são fotografias reais de Jamil Albuquerque e substituí-los pelos
- *       arquivos originais em alta resolução. Se forem ilustrações geradas, removê-los (portrait: null).
  */
 export const JAMIL_PROFILE: PersonProfile = {
   eyebrow: 'O legado no Brasil',
@@ -34,16 +33,16 @@ export const JAMIL_PROFILE: PersonProfile = {
   familyName: 'Albuquerque',
   subtitle: 'O legado de Napoleon Hill no Brasil.',
   portrait: {
-    src: '/images/jamil/jamil-albuquerque.jpg',
-    alt: 'Jamil Albuquerque de terno escuro, sorrindo, com os braços cruzados.',
-    width: 205,
-    height: 182,
+    src: '/images/jamil/jamil-albuquerque.webp',
+    alt: 'Jamil Albuquerque sorrindo, de terno azul e gravata vermelha, em fundo azul-escuro.',
+    width: 887,
+    height: 620,
   },
-  pagePortrait: {
-    src: '/images/jamil/jamil-albuquerque-portrait.jpg',
-    alt: 'Retrato de Jamil Albuquerque de terno escuro em fundo escuro.',
-    width: 194,
-    height: 199,
+  squarePortrait: {
+    src: '/images/jamil/jamil-albuquerque-square.jpg',
+    alt: 'Jamil Albuquerque sorrindo, de terno azul e gravata azul-clara.',
+    width: 400,
+    height: 400,
   },
   summary: [
     'Há mais de três décadas dedicando sua vida ao estudo e à aplicação dos princípios de Napoleon Hill.',

@@ -21,5 +21,5 @@ import { JamilSection } from './jamil-section/jamil-section';
 export class JamilPage {
   protected readonly intro = PAGE_INTROS.jamil;
   protected readonly breadcrumb = PAGE_METADATA.jamil.breadcrumb;
-  protected readonly heroImage = JAMIL_PROFILE.pagePortrait;
+  protected readonly heroImage = JAMIL_PROFILE.portrait;
 }

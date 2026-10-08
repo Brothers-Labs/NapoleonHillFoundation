@@ -1,6 +1,6 @@
 {
   "name": "napoleon-hill-foundation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Experiência digital institucional da The Napoleon Hill Foundation Brasil.",
   "scripts": {
     "ng": "ng",

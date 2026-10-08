@@ -118,10 +118,11 @@ export const BRAZIL_CONTENT: BrazilContent = {
     name: 'Master Mind – Treinamentos de Alta Performance',
     description: 'Organização licenciada oficialmente pela Napoleon Hill Foundation.',
   },
+  // Official photograph supplied on 2026-10-08: Jamil Albuquerque on stage at a Master Mind event.
   image: {
-    src: '/images/brazil/sao-paulo-bridge.jpg',
-    alt: 'Ponte estaiada de São Paulo iluminada à noite.',
-    width: 240,
-    height: 190,
+    src: '/images/jamil/jamil-albuquerque-mastermind-stage.jpg',
+    alt: 'Jamil Albuquerque palestrando em um evento da Master Mind, com bandeiras ao fundo.',
+    width: 525,
+    height: 348,
   },
 };

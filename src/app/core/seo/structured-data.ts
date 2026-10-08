@@ -88,7 +88,7 @@ function buildJamil(): StructuredData | null {
     familyName: JAMIL_PROFILE.familyName,
     jobTitle: JAMIL_PROFILE.role,
     description: JAMIL_PROFILE.summary[0] ?? null,
-    image: JAMIL_PROFILE.portrait ? toAbsoluteUrl(JAMIL_PROFILE.portrait.src) : null,
+    image: JAMIL_PROFILE.squarePortrait ? toAbsoluteUrl(JAMIL_PROFILE.squarePortrait.src) : null,
   });
 }
 
