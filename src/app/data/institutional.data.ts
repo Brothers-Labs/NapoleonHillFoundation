@@ -1,5 +1,6 @@
 import type { ImageAsset, SectionCopy } from '../core/models/content.model';
 import type { IconName } from '../shared/components/icon/icon';
+import { NAPOLEON_HILL_PROFILE } from './napoleon-hill.data';
 
 export interface InstitutionalPillar {
   readonly id: string;
@@ -20,7 +21,7 @@ export interface FoundationContent {
     readonly image: ImageAsset;
   };
   readonly pillars: readonly InstitutionalPillar[];
-  readonly pageImage: ImageAsset;
+  readonly pageImage: ImageAsset | null;
 }
 
 export interface Representative {
@@ -97,12 +98,7 @@ export const FOUNDATION_CONTENT: FoundationContent = {
       icon: 'heart',
     },
   ],
-  pageImage: {
-    src: '/images/foundation/napoleon-hill-bust.jpg',
-    alt: 'Busto de Napoleon Hill entre livros antigos.',
-    width: 172,
-    height: 130,
-  },
+  pageImage: NAPOLEON_HILL_PROFILE.squarePortrait,
 };
 
 export const BRAZIL_CONTENT: BrazilContent = {

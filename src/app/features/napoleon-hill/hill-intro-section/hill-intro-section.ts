@@ -27,7 +27,7 @@ import { RevealDirective } from '../../../shared/directives/reveal.directive';
         <div class="intro__media" nhReveal="mask">
           <nh-media-frame
             [image]="profile.portrait"
-            aspect="landscape"
+            aspect="portrait"
             monogram="N.H."
             placeholderCaption="Napoleon Hill · retrato histórico"
             [nhParallax]="4"
@@ -100,6 +100,7 @@ import { RevealDirective } from '../../../shared/directives/reveal.directive';
     }
 
     .intro__media {
+      max-width: 28rem;
       overflow: hidden;
       border-radius: var(--nh-radius-lg);
       box-shadow: var(--nh-shadow-paper);

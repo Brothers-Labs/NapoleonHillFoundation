@@ -66,14 +66,17 @@ function buildBreadcrumbs(key: PageKey): StructuredData | null {
 }
 
 function buildNapoleonHill(): StructuredData {
-  return {
+  return compact({
     '@type': 'Person',
     name: NAPOLEON_HILL_PROFILE.name,
     birthDate: NAPOLEON_HILL_PROFILE.birthDate,
     deathDate: NAPOLEON_HILL_PROFILE.deathDate,
     birthPlace: NAPOLEON_HILL_PROFILE.birthPlace,
     jobTitle: 'Escritor',
-  };
+    image: NAPOLEON_HILL_PROFILE.squarePortrait
+      ? toAbsoluteUrl(NAPOLEON_HILL_PROFILE.squarePortrait.src)
+      : null,
+  });
 }
 
 function buildJamil(): StructuredData | null {

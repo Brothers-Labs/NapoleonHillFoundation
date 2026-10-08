@@ -2,6 +2,19 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
+## [0.1.2] - 2026-10-08
+
+### Alterado
+
+- Fotografias de Napoleon Hill substituem os recortes de baixa resolução do mock: retrato jovem
+  no hero (tratado em P&B), retrato P&B em "Quem foi", retrato colorido no hero de `/fundacao` e
+  no JSON-LD `Person`, e retrato colorizado no novo hero de `/napoleon-hill`.
+- Área da fotografia do hero desktop ajustada à proporção do novo retrato.
+
+### Removido
+
+- Recortes do mock: retrato com o livro, foto na mesa de trabalho e busto.
+
 ## [0.1.1] - 2026-10-08
 
 ### Alterado

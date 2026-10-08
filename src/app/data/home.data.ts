@@ -8,7 +8,7 @@ export interface HeroContent {
   readonly image: ImageAsset | null;
 }
 
-// TODO: substituir a imagem recortada do mock pelo arquivo original em alta resolução.
+// Historical photograph of a young Napoleon Hill, supplied on 2026-10-08.
 export const HERO_CONTENT: HeroContent = {
   eyebrow: ['The Napoleon Hill Foundation', 'Brasil'],
   headline: ['O sucesso', 'começa na mente.'],
@@ -16,10 +16,10 @@ export const HERO_CONTENT: HeroContent = {
     'O legado de Napoleon Hill, agora apresentado oficialmente para uma nova geração no Brasil.',
   scrollCue: 'Descubra o legado',
   image: {
-    src: '/images/hero/napoleon-hill-hero.jpg',
+    src: '/images/hero/napoleon-hill-young-portrait.jpg',
     alt: '',
-    width: 856,
-    height: 396,
+    width: 688,
+    height: 540,
   },
 };
 

@@ -7,6 +7,10 @@ export interface HistoricalProfile {
   readonly birthPlace: string;
   readonly deathDate: string;
   readonly portrait: ImageAsset | null;
+  /** Square portrait for structured data and square layouts. */
+  readonly squarePortrait: ImageAsset | null;
+  /** Portrait shown in the hero of the dedicated page. */
+  readonly pagePortrait: ImageAsset | null;
   readonly intro: SectionCopy;
   /** Short version used on the home page. */
   readonly summary: readonly string[];
@@ -15,9 +19,8 @@ export interface HistoricalProfile {
 }
 
 /*
- * Copy and imagery follow the visual mock delivered on 2026-10-07.
- * TODO: validar com Jamil Albuquerque antes da publicação (textos, números e imagens).
- * TODO: substituir as imagens recortadas do mock pelos arquivos originais em alta resolução.
+ * Portraits: historical photographs supplied on 2026-10-08. Copy follows the visual mock of 2026-10-07.
+ * TODO: validar com Jamil Albuquerque antes da publicação (textos, números e direitos de uso das fotos).
  */
 export const NAPOLEON_HILL_PROFILE: HistoricalProfile = {
   name: 'Napoleon Hill',
@@ -25,10 +28,22 @@ export const NAPOLEON_HILL_PROFILE: HistoricalProfile = {
   birthPlace: 'Condado de Wise, Virgínia, Estados Unidos',
   deathDate: '1970-11-08',
   portrait: {
-    src: '/images/napoleon-hill/napoleon-hill-desk.jpg',
-    alt: 'Napoleon Hill escrevendo à mesa de trabalho, em fotografia em preto e branco.',
-    width: 354,
-    height: 259,
+    src: '/images/napoleon-hill/napoleon-hill-portrait-bw.webp',
+    alt: 'Retrato em preto e branco de Napoleon Hill, de óculos, terno escuro e gravata.',
+    width: 480,
+    height: 601,
+  },
+  squarePortrait: {
+    src: '/images/napoleon-hill/napoleon-hill-portrait-color.jpg',
+    alt: 'Retrato colorido de Napoleon Hill, de óculos e terno escuro, sentado diante de um fundo neutro.',
+    width: 447,
+    height: 447,
+  },
+  pagePortrait: {
+    src: '/images/napoleon-hill/napoleon-hill-colorized.jpg',
+    alt: 'Fotografia colorizada de Napoleon Hill sorrindo, de óculos e terno marrom.',
+    width: 489,
+    height: 627,
   },
   intro: {
     eyebrow: 'Quem foi',
