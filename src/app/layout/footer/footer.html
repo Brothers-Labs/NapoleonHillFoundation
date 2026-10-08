@@ -1,0 +1,139 @@
+<footer class="footer">
+  <div class="nh-container nh-container--wide footer__inner">
+    <div class="footer__intro">
+      <a
+        class="footer__brand"
+        routerLink="/"
+        aria-label="The Napoleon Hill Foundation Brasil, página inicial"
+      >
+        <nh-brand-mark />
+      </a>
+      <p class="footer__message">{{ message }}</p>
+      @if (socialProfiles.length) {
+        <ul class="footer__social" aria-label="Redes sociais">
+          @for (profile of socialProfiles; track profile.network) {
+            <li>
+              <a
+                class="footer__social-link"
+                [href]="profile.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="profile.label + ' (abre em uma nova aba)'"
+              >
+                <nh-icon [name]="profile.network" />
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+
+    <div class="footer__columns">
+      @for (column of columns; track column.id) {
+        <nav class="footer__column" [attr.aria-labelledby]="'footer-' + column.id">
+          <h2 class="footer__heading" [id]="'footer-' + column.id">{{ column.title }}</h2>
+          <ul class="footer__list">
+            @for (link of column.links; track link.id) {
+              <li>
+                <a class="footer__link" [routerLink]="link.route" [fragment]="link.fragment">
+                  {{ link.label }}
+                </a>
+              </li>
+            }
+          </ul>
+        </nav>
+      }
+
+      <nav class="footer__column" aria-labelledby="footer-legal">
+        <h2 class="footer__heading" id="footer-legal">Informações</h2>
+        <ul class="footer__list">
+          @for (link of legalLinks; track link.id) {
+            <li>
+              <a class="footer__link" [routerLink]="link.route">{{ link.label }}</a>
+            </li>
+          }
+          <li>
+            <button type="button" class="footer__link" (click)="openCookiePreferences()">
+              Preferências de cookies
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="footer__column footer__column--contact">
+        <h2 class="footer__heading">Contato</h2>
+        <ul class="footer__list">
+          @for (phone of contact.phones; track phone.value) {
+            <li>
+              <a class="footer__link footer__link--icon" [href]="'tel:' + phone.value">
+                <nh-icon name="phone" />
+                {{ phone.display }}
+              </a>
+            </li>
+          }
+          @if (whatsappUrl && contact.whatsapp; as channel) {
+            <li>
+              <a
+                class="footer__link footer__link--icon"
+                [href]="whatsappUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                nhTrack="whatsapp_click"
+                [nhTrackParams]="{ placement: 'footer' }"
+              >
+                <nh-icon name="whatsapp" />
+                {{ channel.displayNumber }}
+                <span class="nh-visually-hidden">(WhatsApp, abre em uma nova aba)</span>
+              </a>
+            </li>
+          }
+          @if (contact.email; as email) {
+            <li>
+              <a class="footer__link footer__link--icon" [href]="'mailto:' + email">
+                <nh-icon name="mail" />
+                {{ email }}
+              </a>
+            </li>
+          }
+          @if (contact.address; as address) {
+            <li>
+              <address class="footer__address">
+                <nh-icon name="map-pin" />
+                <span>
+                  {{ address.street }}<br />
+                  {{ address.locality }} – {{ address.region }}, CEP {{ address.postalCode }}
+                </span>
+              </address>
+            </li>
+          }
+          @if (!hasContactChannels) {
+            <li>
+              <a class="footer__link" routerLink="/contato">Fale conosco</a>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="nh-container nh-container--wide footer__bottom">
+    <p>© {{ currentYear }} {{ copyrightHolder }}. Todos os direitos reservados.</p>
+    @if (internationalUrl) {
+      <a
+        class="footer__link footer__international"
+        [href]="internationalUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        nhTrack="external_foundation_click"
+        [nhTrackParams]="{ placement: 'footer' }"
+      >
+        Napoleon Hill Foundation — USA
+        <span class="nh-visually-hidden">(abre em uma nova aba)</span>
+        <nh-icon name="arrow-up-right" />
+      </a>
+    }
+    <button type="button" class="footer__top" aria-label="Voltar ao topo" (click)="scrollToTop()">
+      <nh-icon name="chevron-up" />
+    </button>
+  </div>
+</footer>

@@ -1,0 +1,89 @@
+@use 'breakpoints' as bp;
+
+:host {
+  display: block;
+}
+
+.foundation {
+  overflow: hidden;
+  padding-top: 0;
+
+  @include bp.up(lg) {
+    padding-top: var(--nh-section-space);
+  }
+}
+
+// Mobile: the building opens the section. Desktop: it fills the right half, fading into the paper.
+.foundation__visual {
+  position: relative;
+  height: 16rem;
+  margin-bottom: var(--nh-space-7);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
+
+  @include bp.up(lg) {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 46%;
+    height: auto;
+    margin: 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 35%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 35%);
+  }
+}
+
+.foundation__image {
+  width: 100%;
+  height: 115%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+.foundation__content {
+  position: relative;
+  z-index: var(--nh-z-base);
+  display: grid;
+  justify-items: start;
+  gap: var(--nh-space-5);
+
+  > * {
+    max-width: 30rem;
+  }
+}
+
+.foundation__eyebrow {
+  font-size: var(--nh-text-xs);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nh-accent);
+}
+
+.foundation__title {
+  font-size: var(--nh-heading-2);
+  line-height: 1.05;
+}
+
+.foundation__text {
+  color: var(--nh-text-muted);
+}
+
+.foundation__highlights {
+  display: grid;
+  gap: var(--nh-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--nh-space-3);
+    color: var(--nh-text);
+  }
+
+  nh-icon {
+    color: var(--nh-accent);
+  }
+}

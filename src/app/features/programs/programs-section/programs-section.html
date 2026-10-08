@@ -1,0 +1,62 @@
+<section class="programs nh-section nh-theme-navy nh-grain" aria-labelledby="programs-title">
+  <div class="nh-container programs__inner">
+    <nh-section-heading
+      class="programs__heading"
+      [copy]="copy"
+      titleId="programs-title"
+      align="center"
+    />
+
+    @if (programs.length) {
+      <ul class="programs__grid">
+        @for (program of programs; track program.id; let index = $index) {
+          <li nhReveal [nhRevealDelay]="index * 70">
+            @switch (program.action.kind) {
+              @case ('route') {
+                <a
+                  class="program"
+                  [routerLink]="program.action.route"
+                  nhTrack="program_click"
+                  [nhTrackParams]="{ program: program.id }"
+                >
+                  <span class="program__icon"><nh-icon [name]="program.icon" /></span>
+                  <span class="program__name">{{ program.name }}</span>
+                  <span class="program__description">{{ program.description }}</span>
+                  <nh-icon class="program__chevron" name="chevron-right" />
+                </a>
+              }
+              @case ('external') {
+                <a
+                  class="program"
+                  [href]="program.action.href"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  nhTrack="program_click"
+                  [nhTrackParams]="{ program: program.id }"
+                >
+                  <span class="program__icon"><nh-icon [name]="program.icon" /></span>
+                  <span class="program__name">{{ program.name }}</span>
+                  <span class="program__description">{{ program.description }}</span>
+                  <nh-icon class="program__chevron" name="arrow-up-right" />
+                </a>
+              }
+            }
+          </li>
+        }
+      </ul>
+
+      @if (showPageLink()) {
+        <div class="programs__cta" nhReveal>
+          <a class="nh-button nh-button--primary" routerLink="/programas"
+            >Conheça todos os programas</a
+          >
+        </div>
+      }
+    } @else {
+      <nh-pending-notice
+        title="A agenda de programas será publicada em breve."
+        description="Treinamentos, formações e eventos oficiais serão apresentados aqui assim que forem confirmados."
+      />
+    }
+  </div>
+</section>

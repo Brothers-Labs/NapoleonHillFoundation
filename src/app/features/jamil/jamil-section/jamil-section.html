@@ -1,0 +1,73 @@
+<section class="jamil nh-section nh-theme-light" aria-labelledby="jamil-title">
+  <div class="jamil__grid nh-container" [class.is-detailed]="isDetailed()">
+    @if (!isDetailed()) {
+      <div class="jamil__portrait" nhReveal="mask">
+        <nh-media-frame
+          [image]="profile.portrait"
+          aspect="square"
+          monogram="J.A."
+          placeholderCaption="Retrato oficial em breve"
+          sizes="(min-width: 1024px) 40vw, 100vw"
+        />
+      </div>
+    }
+
+    <div class="jamil__content">
+      <p class="jamil__eyebrow" nhReveal="fade">{{ profile.eyebrow }}</p>
+      <h2 class="jamil__title" id="jamil-title" nhReveal [nhRevealDelay]="80">
+        <span>{{ profile.givenName }}</span>
+        <span>{{ profile.familyName }}</span>
+      </h2>
+      <p class="jamil__subtitle" nhReveal [nhRevealDelay]="140">{{ profile.subtitle }}</p>
+      <span class="nh-rule" aria-hidden="true"></span>
+
+      @if (paragraphs().length) {
+        <div class="jamil__prose">
+          @for (paragraph of paragraphs(); track $index) {
+            <p nhReveal>{{ paragraph }}</p>
+          }
+        </div>
+      } @else {
+        <nh-pending-notice
+          title="Biografia oficial em preparação."
+          description="A trajetória, a atuação e os projetos de Jamil Albuquerque serão apresentados aqui em breve."
+          [showContactLink]="false"
+        />
+      }
+
+      @if (!isDetailed()) {
+        <a
+          class="nh-button nh-button--outline"
+          routerLink="/jamil-albuquerque"
+          nhTrack="jamil_profile_click"
+          nhReveal
+          [nhRevealDelay]="120"
+        >
+          Conheça sua história
+        </a>
+      }
+    </div>
+  </div>
+
+  @if (isDetailed() && profile.stats.length) {
+    <dl class="jamil__stats nh-container">
+      @for (stat of profile.stats; track stat.id; let index = $index) {
+        <div class="stat" nhReveal [nhRevealDelay]="index * 90">
+          <dt class="stat__label">{{ stat.label }}</dt>
+          <dd class="stat__value">{{ stat.value }}</dd>
+        </div>
+      }
+    </dl>
+  }
+</section>
+
+@if (isDetailed() && profile.quote; as quote) {
+  <section class="quote nh-section nh-theme-navy nh-grain" aria-label="Frase de Jamil Albuquerque">
+    <figure class="quote__figure nh-container nh-container--narrow" nhReveal>
+      <blockquote class="quote__text">“{{ quote }}”</blockquote>
+      <figcaption class="quote__author">
+        {{ profile.givenName }} {{ profile.familyName }}
+      </figcaption>
+    </figure>
+  </section>
+}

@@ -1,0 +1,211 @@
+@use 'breakpoints' as bp;
+
+:host {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--nh-z-header);
+  display: block;
+}
+
+:host-context(.nh-motion) {
+  animation: nh-fade 900ms var(--nh-ease-out) both;
+}
+
+.header {
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--nh-duration-slow) var(--nh-ease-out),
+    border-color var(--nh-duration-slow) var(--nh-ease-out),
+    backdrop-filter var(--nh-duration-slow) var(--nh-ease-out);
+
+  &.is-scrolled {
+    background: rgb(7 20 38 / 86%);
+    border-bottom-color: var(--nh-line);
+    backdrop-filter: blur(14px) saturate(140%);
+  }
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--nh-space-5);
+  height: var(--nh-header-height);
+}
+
+.header__brand {
+  display: inline-flex;
+  min-height: var(--nh-touch-target);
+  align-items: center;
+  color: var(--nh-text);
+  text-decoration: none;
+}
+
+.header__nav {
+  display: none;
+
+  @include bp.up(xl) {
+    display: block;
+  }
+}
+
+.header__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 0.2rem + 0.9vw, 1.75rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nh-space-1);
+  min-height: var(--nh-touch-target);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--nh-text-muted);
+  font-size: var(--nh-text-2xs);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--nh-duration-base);
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.6rem;
+    height: 1px;
+    background: var(--nh-gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--nh-duration-slow) var(--nh-ease-out);
+  }
+
+  &:hover,
+  &.is-active {
+    color: var(--nh-text);
+  }
+
+  &.is-active::after {
+    transform: scaleX(1);
+  }
+}
+
+.header__group {
+  position: relative;
+
+  nh-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    transition: transform var(--nh-duration-base) var(--nh-ease-out);
+  }
+
+  [aria-expanded='true'] nh-icon {
+    transform: rotate(180deg);
+  }
+}
+
+.header__submenu {
+  position: absolute;
+  top: calc(100% + var(--nh-space-2));
+  left: 50%;
+  min-width: 14rem;
+  margin: 0;
+  padding: var(--nh-space-3);
+  list-style: none;
+  background: rgb(7 20 38 / 96%);
+  border: var(--nh-border-hairline);
+  box-shadow: var(--nh-shadow-soft);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(-50%, -0.5rem, 0);
+  transition:
+    opacity var(--nh-duration-base) var(--nh-ease-out),
+    transform var(--nh-duration-base) var(--nh-ease-out),
+    visibility 0s linear var(--nh-duration-base);
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(-50%, 0, 0);
+    transition-delay: 0s;
+  }
+}
+
+.header__submenu-link {
+  display: flex;
+  align-items: center;
+  min-height: var(--nh-touch-target);
+  padding: 0 var(--nh-space-3);
+  color: var(--nh-text-muted);
+  font-size: var(--nh-text-sm);
+  text-decoration: none;
+  transition:
+    color var(--nh-duration-base),
+    background-color var(--nh-duration-base);
+
+  &:hover,
+  &[aria-current='page'] {
+    color: var(--nh-gold);
+    background: rgb(198 161 91 / 6%);
+  }
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--nh-space-3);
+}
+
+.header__cta {
+  display: none;
+  min-height: 2.75rem;
+  padding-inline: var(--nh-space-5);
+
+  @include bp.up(md) {
+    display: inline-flex;
+  }
+}
+
+.header__menu-toggle {
+  display: inline-grid;
+  place-content: center;
+  gap: 0.4rem;
+  width: var(--nh-touch-target);
+  height: var(--nh-touch-target);
+  padding: 0;
+  border: var(--nh-border-hairline);
+  border-radius: 50%;
+  background: rgb(5 8 12 / 30%);
+  color: var(--nh-text);
+  transition: border-color var(--nh-duration-base);
+
+  &:hover {
+    border-color: var(--nh-gold);
+  }
+
+  @include bp.up(xl) {
+    display: none;
+  }
+}
+
+.header__menu-line {
+  display: block;
+  width: 1.125rem;
+  height: 1px;
+  background: currentcolor;
+
+  & + & {
+    width: 0.75rem;
+    justify-self: end;
+  }
+}

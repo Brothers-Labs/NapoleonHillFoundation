@@ -1,0 +1,28 @@
+@if (image(); as asset) {
+  <figure class="frame">
+    <img
+      class="frame__image"
+      [src]="asset.src"
+      [attr.srcset]="asset.srcset ?? null"
+      [attr.sizes]="asset.srcset ? sizes() : null"
+      [alt]="asset.alt"
+      [width]="asset.width"
+      [height]="asset.height"
+      [attr.loading]="isPriority() ? 'eager' : 'lazy'"
+      [attr.fetchpriority]="isPriority() ? 'high' : null"
+      decoding="async"
+    />
+    @if (asset.credit) {
+      <figcaption class="frame__credit">{{ asset.credit }}</figcaption>
+    }
+  </figure>
+} @else {
+  <div class="frame frame--placeholder" role="img" [attr.aria-label]="placeholderCaption()">
+    <span class="frame__corner frame__corner--top" aria-hidden="true"></span>
+    <span class="frame__corner frame__corner--bottom" aria-hidden="true"></span>
+    @if (monogram()) {
+      <span class="frame__monogram" aria-hidden="true">{{ monogram() }}</span>
+    }
+    <span class="frame__caption" aria-hidden="true">{{ placeholderCaption() }}</span>
+  </div>
+}

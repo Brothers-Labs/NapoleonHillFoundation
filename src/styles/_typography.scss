@@ -1,0 +1,87 @@
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--nh-font-serif);
+  font-weight: 400;
+  line-height: var(--nh-leading-heading);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.nh-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nh-space-3);
+  font-family: var(--nh-font-sans);
+  font-size: var(--nh-text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--nh-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--nh-accent);
+
+  &::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: currentcolor;
+    opacity: 0.7;
+  }
+}
+
+.nh-heading-1 {
+  font-size: var(--nh-heading-1);
+  line-height: var(--nh-leading-tight);
+}
+
+.nh-heading-2 {
+  font-size: var(--nh-heading-2);
+  line-height: var(--nh-leading-heading);
+}
+
+.nh-heading-3 {
+  font-size: var(--nh-heading-3);
+}
+
+.nh-lead {
+  font-size: var(--nh-text-lg);
+  color: var(--nh-text-muted);
+  max-width: 38rem;
+}
+
+.nh-prose {
+  display: grid;
+  gap: var(--nh-space-5);
+  max-width: 40rem;
+  color: var(--nh-text-muted);
+  font-size: var(--nh-text-md);
+}
+
+// Short gold rule placed under headings, as in the visual identity mock.
+.nh-rule {
+  display: block;
+  width: 3rem;
+  height: 2px;
+  border: 0;
+  margin: 0;
+  background: var(--nh-accent);
+}
+
+.nh-highlight {
+  color: var(--nh-accent);
+  font-style: italic;
+}

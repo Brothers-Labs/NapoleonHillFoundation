@@ -1,0 +1,73 @@
+<section class="hero nh-grain" aria-labelledby="hero-title">
+  <div class="hero__backdrop" aria-hidden="true">
+    @if (content.image; as image) {
+      <img
+        class="hero__image"
+        [src]="image.src"
+        [attr.srcset]="image.srcset ?? null"
+        sizes="(min-width: 1024px) 64vw, 100vw"
+        alt=""
+        [width]="image.width"
+        [height]="image.height"
+        fetchpriority="high"
+        decoding="async"
+      />
+    }
+    <div class="hero__beam"></div>
+    <nh-particle-field variant="dust" />
+    <div class="hero__vignette"></div>
+  </div>
+
+  <div class="hero__content nh-container nh-container--wide">
+    <p class="nh-visually-hidden">{{ content.eyebrow[0] }} {{ content.eyebrow[1] }}</p>
+
+    <h1 class="hero__title" id="hero-title">
+      <span class="hero__line"
+        ><span class="hero__line-inner">{{ content.headline[0] }}</span></span
+      >
+      <span class="hero__line hero__line--accent">
+        <span class="hero__line-inner">{{ content.headline[1] }}</span>
+      </span>
+    </h1>
+
+    <span class="hero__divider" aria-hidden="true"></span>
+
+    <p class="hero__lead">{{ content.subheadline }}</p>
+
+    <div class="nh-actions hero__actions">
+      <a
+        class="nh-button nh-button--primary"
+        routerLink="/filosofia"
+        nhTrack="hero_philosophy_click"
+      >
+        Conheça a filosofia
+      </a>
+      @if (featuredVideo) {
+        <button
+          type="button"
+          class="nh-button nh-button--light"
+          aria-haspopup="dialog"
+          nhTrack="video_play"
+          [nhTrackParams]="{ video: featuredVideo.id, placement: 'hero' }"
+          (click)="playFeaturedVideo()"
+        >
+          <nh-icon name="play" />
+          Assista ao vídeo
+        </button>
+      } @else {
+        <a class="nh-button nh-button--light" routerLink="/brasil" nhTrack="hero_brazil_click">
+          Napoleon Hill no Brasil
+        </a>
+      }
+    </div>
+  </div>
+
+  <a class="hero__scroll" routerLink="/" fragment="legado">
+    <span class="nh-visually-hidden">{{ content.scrollCue }}</span>
+    <span class="hero__scroll-line" aria-hidden="true"></span>
+  </a>
+</section>
+
+@if (featuredVideo) {
+  <nh-video-dialog [(video)]="playingVideo" />
+}

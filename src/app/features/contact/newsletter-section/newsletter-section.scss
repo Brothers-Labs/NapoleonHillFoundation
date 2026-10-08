@@ -1,0 +1,53 @@
+@use 'breakpoints' as bp;
+
+:host {
+  display: block;
+}
+
+.newsletter {
+  padding-block: var(--nh-space-8);
+}
+
+.newsletter__inner {
+  display: grid;
+  gap: var(--nh-space-5);
+  max-width: calc(64rem + var(--nh-gutter) * 2);
+}
+
+.newsletter__intro {
+  display: grid;
+  gap: var(--nh-space-2);
+}
+
+.newsletter__title {
+  font-size: var(--nh-heading-3);
+}
+
+.newsletter__lead {
+  max-width: 34rem;
+  font-size: var(--nh-text-sm);
+  color: var(--nh-text-muted);
+}
+
+.newsletter__form {
+  display: grid;
+  gap: var(--nh-space-4);
+}
+
+.newsletter__fields {
+  display: grid;
+  gap: var(--nh-space-3);
+
+  @include bp.up(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+    align-items: start;
+  }
+}
+
+.newsletter__submit {
+  width: 100%;
+
+  @include bp.up(lg) {
+    width: auto;
+  }
+}

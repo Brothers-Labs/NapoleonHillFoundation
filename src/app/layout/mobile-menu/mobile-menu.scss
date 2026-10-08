@@ -1,0 +1,105 @@
+.menu {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100%;
+  padding: 0 var(--nh-gutter) calc(var(--nh-space-6) + var(--nh-safe-bottom));
+  background:
+    radial-gradient(80% 50% at 100% 0%, rgb(198 161 91 / 12%), transparent 70%), var(--nh-black);
+}
+
+.menu__top {
+  display: flex;
+  align-items: center;
+  height: var(--nh-header-height);
+}
+
+.menu__brand {
+  display: inline-flex;
+  min-height: var(--nh-touch-target);
+  align-items: center;
+  color: var(--nh-text);
+  text-decoration: none;
+}
+
+.menu__nav {
+  position: relative;
+  z-index: var(--nh-z-base);
+  align-self: center;
+  padding-block: var(--nh-space-6);
+}
+
+.menu__list {
+  display: grid;
+  gap: var(--nh-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu__item {
+  border-bottom: var(--nh-border-hairline);
+  animation: nh-fade-up 700ms var(--nh-ease-out) both;
+  animation-delay: calc(120ms + var(--item-index) * 45ms);
+}
+
+.menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--nh-space-4);
+  min-height: 3.25rem;
+  padding-block: var(--nh-space-2);
+  color: var(--nh-text);
+  text-decoration: none;
+
+  &:hover .menu__label,
+  &:focus-visible .menu__label {
+    color: var(--nh-gold);
+  }
+}
+
+.menu__number {
+  min-width: 1.75rem;
+  font-size: var(--nh-text-2xs);
+  letter-spacing: 0.12em;
+  color: var(--nh-gold);
+}
+
+.menu__label {
+  font-family: var(--nh-font-serif);
+  font-size: clamp(1.625rem, 1.2rem + 2vw, 2.5rem);
+  line-height: 1.15;
+  transition: color var(--nh-duration-base);
+}
+
+.menu__children {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--nh-space-5);
+  margin: 0 0 var(--nh-space-3) calc(1.75rem + var(--nh-space-4));
+  padding: 0;
+  list-style: none;
+}
+
+.menu__child-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--nh-touch-target);
+  color: var(--nh-text-muted);
+  font-size: var(--nh-text-sm);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--nh-gold);
+  }
+}
+
+.menu__footer {
+  position: relative;
+  z-index: var(--nh-z-base);
+  animation: nh-fade-up 700ms var(--nh-ease-out) 560ms both;
+}
+
+.menu__cta {
+  width: 100%;
+}

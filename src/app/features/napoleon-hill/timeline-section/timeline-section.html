@@ -1,0 +1,36 @@
+<section class="timeline nh-section nh-theme-midnight nh-grain" aria-labelledby="timeline-title">
+  <img
+    class="timeline__book"
+    [src]="image.src"
+    [alt]="image.alt"
+    [width]="image.width"
+    [height]="image.height"
+    loading="lazy"
+    decoding="async"
+    [nhParallax]="10"
+  />
+
+  <div class="nh-container timeline__inner">
+    <header class="timeline__header">
+      <h2 class="timeline__title" id="timeline-title" nhReveal>{{ copy.title }}</h2>
+      @if (copy.lead; as lead) {
+        <p class="timeline__lead" nhReveal [nhRevealDelay]="100">{{ lead }}</p>
+      }
+    </header>
+
+    <div class="timeline__track">
+      <span class="timeline__rail" aria-hidden="true">
+        <span #progress class="timeline__progress"></span>
+      </span>
+      <ol class="timeline__list">
+        @for (event of events; track event.id; let index = $index) {
+          <li class="timeline__item" nhReveal [nhRevealDelay]="index * 110">
+            <span class="timeline__dot" aria-hidden="true"></span>
+            <p class="timeline__period">{{ event.period }}</p>
+            <p class="timeline__label">{{ event.label }}</p>
+          </li>
+        }
+      </ol>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,127 @@
+// Design tokens. Components consume only these custom properties, never raw values.
+
+:root {
+  // Brand palette
+  --nh-midnight: #071426;
+  --nh-deep-navy: #0c1b30;
+  --nh-black: #05080c;
+  --nh-ivory: #f5f1e8;
+  --nh-warm-white: #faf9f6;
+  --nh-gold: #c6a15b;
+  --nh-antique-gold: #a87c32;
+  --nh-charcoal: #161616;
+  --nh-muted: #8d9298;
+
+  // Semantic: dark surfaces (default)
+  --nh-background: var(--nh-black);
+  --nh-surface: var(--nh-deep-navy);
+  --nh-surface-raised: #11233d;
+  --nh-text: var(--nh-ivory);
+  --nh-text-muted: rgb(245 241 232 / 70%);
+  --nh-text-subtle: rgb(245 241 232 / 52%);
+  --nh-line: rgb(245 241 232 / 12%);
+  --nh-line-strong: rgb(245 241 232 / 24%);
+  --nh-accent: var(--nh-gold);
+  --nh-gold-muted: rgb(198 161 91 / 38%);
+  --nh-gold-glow: rgb(198 161 91 / 14%);
+
+  // Semantic: light surfaces
+  --nh-paper: var(--nh-ivory);
+  --nh-ink: var(--nh-charcoal);
+  --nh-ink-muted: #4a4d52;
+  --nh-ink-line: rgb(22 22 22 / 12%);
+  // Antique gold darkened to keep AA contrast for small text on ivory.
+  --nh-gold-ink: #7d5b21;
+
+  // Feedback
+  --nh-success: #7fb08a;
+  --nh-danger: #e08c7d;
+  --nh-danger-ink: #a2402f;
+
+  // Typography
+  --nh-font-serif: 'Cormorant Garamond', 'Iowan Old Style', 'Times New Roman', serif;
+  --nh-font-sans:
+    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --nh-text-2xs: 0.6875rem;
+  --nh-text-xs: 0.75rem;
+  --nh-text-sm: 0.875rem;
+  --nh-text-base: 1rem;
+  --nh-text-md: 1.0625rem;
+  --nh-text-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --nh-text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --nh-heading-3: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
+  --nh-heading-2: clamp(2.25rem, 1.5rem + 3vw, 4rem);
+  --nh-heading-1: clamp(2.625rem, 1.6rem + 4.2vw, 5.5rem);
+  // ~51px at 375px, ~73px at 768px, capped at 110px on wide screens.
+  --nh-display-hero: clamp(3.125rem, 1.9rem + 5.6vw, 6.875rem);
+
+  --nh-leading-tight: 1.02;
+  --nh-leading-heading: 1.1;
+  --nh-leading-body: 1.65;
+  --nh-tracking-eyebrow: 0.24em;
+  --nh-tracking-button: 0.16em;
+
+  // Spacing scale
+  --nh-space-1: 0.25rem;
+  --nh-space-2: 0.5rem;
+  --nh-space-3: 0.75rem;
+  --nh-space-4: 1rem;
+  --nh-space-5: 1.5rem;
+  --nh-space-6: 2rem;
+  --nh-space-7: 3rem;
+  --nh-space-8: 4rem;
+  --nh-space-9: 6rem;
+  --nh-space-10: 8rem;
+  --nh-section-space: clamp(5rem, 3rem + 8vw, 10rem);
+
+  // Containers
+  --nh-container: 76rem;
+  --nh-container-wide: 90rem;
+  --nh-container-narrow: 46rem;
+  --nh-gutter: clamp(1.25rem, 0.75rem + 2.5vw, 3rem);
+
+  // Shape
+  --nh-radius-sm: 2px;
+  --nh-radius-md: 4px;
+  --nh-radius-lg: 10px;
+  --nh-radius-pill: 999px;
+  --nh-border-hairline: 1px solid var(--nh-line);
+
+  // Elevation
+  --nh-shadow-soft: 0 18px 50px -24px rgb(0 0 0 / 55%);
+  --nh-shadow-deep: 0 40px 90px -40px rgb(0 0 0 / 80%);
+  --nh-shadow-paper: 0 24px 60px -32px rgb(22 22 22 / 35%);
+
+  // Layers
+  --nh-z-base: 1;
+  --nh-z-raised: 10;
+  --nh-z-header: 100;
+  --nh-z-floating: 150;
+  --nh-z-banner: 200;
+  --nh-z-modal: 300;
+  --nh-z-progress: 400;
+
+  // Motion
+  --nh-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --nh-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --nh-duration-fast: 180ms;
+  --nh-duration-base: 320ms;
+  --nh-duration-slow: 700ms;
+  --nh-duration-reveal: 1100ms;
+
+  // Layout chrome
+  --nh-header-height: 4.5rem;
+  --nh-touch-target: 44px;
+  --nh-safe-bottom: env(safe-area-inset-bottom, 0px);
+  // Fixed mobile tab bar; floating elements stack above it.
+  --nh-tab-bar-height: 3.75rem;
+
+  @media (min-width: 768px) {
+    --nh-tab-bar-height: 0px;
+  }
+
+  @media (min-width: 1024px) {
+    --nh-header-height: 5.5rem;
+  }
+}

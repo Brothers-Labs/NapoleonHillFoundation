@@ -1,0 +1,108 @@
+<section class="gallery nh-section nh-theme-paper" aria-labelledby="gallery-title">
+  <div class="nh-container nh-container--wide">
+    <nh-section-heading class="gallery__heading" [copy]="copy" titleId="gallery-title" />
+
+    @if (hasItems) {
+      @if (categories.length > 1) {
+        <div class="gallery__filters" role="group" aria-label="Filtrar fotos por categoria">
+          <button
+            type="button"
+            class="chip"
+            [attr.aria-pressed]="activeCategory() === allCategories"
+            (click)="activeCategory.set(allCategories)"
+          >
+            Todos
+          </button>
+          @for (category of categories; track category.id) {
+            <button
+              type="button"
+              class="chip"
+              [attr.aria-pressed]="activeCategory() === category.id"
+              (click)="activeCategory.set(category.id)"
+            >
+              {{ category.label }}
+            </button>
+          }
+        </div>
+      }
+
+      <ul class="gallery__grid">
+        @for (item of visibleItems(); track item.id; let index = $index) {
+          <li class="gallery__item" nhReveal="fade" [nhRevealDelay]="(index % 4) * 60">
+            <button
+              type="button"
+              class="gallery__button"
+              aria-haspopup="dialog"
+              (click)="open(index)"
+            >
+              <img
+                [src]="item.image.src"
+                [attr.srcset]="item.image.srcset ?? null"
+                sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
+                [alt]="item.image.alt"
+                [width]="item.image.width"
+                [height]="item.image.height"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="nh-visually-hidden">Ampliar foto</span>
+            </button>
+          </li>
+        }
+      </ul>
+    } @else {
+      <nh-pending-notice
+        title="A galeria oficial está em curadoria."
+        description="Registros de eventos, treinamentos e palestras serão publicados aqui em breve."
+        [showContactLink]="false"
+      />
+    }
+  </div>
+</section>
+
+@if (hasItems) {
+  <nh-dialog
+    variant="media"
+    labelledBy="lightbox-caption"
+    closeLabel="Fechar galeria"
+    [open]="isLightboxOpen()"
+    (openChange)="onLightboxChange($event)"
+    (keydown)="onKeydown($event)"
+  >
+    @if (current(); as item) {
+      <div class="lightbox" (pointerdown)="onPointerDown($event)" (pointerup)="onPointerUp($event)">
+        <img
+          class="lightbox__image"
+          [src]="item.image.src"
+          [alt]="item.image.alt"
+          [width]="item.image.width"
+          [height]="item.image.height"
+        />
+        <div class="lightbox__bar">
+          <p class="lightbox__caption" id="lightbox-caption">
+            {{ item.caption ?? item.image.alt }}
+            <span class="lightbox__count">{{ position() }} / {{ visibleItems().length }}</span>
+          </p>
+          <div class="lightbox__controls">
+            <button
+              type="button"
+              class="lightbox__control"
+              aria-label="Foto anterior"
+              (click)="step(-1)"
+            >
+              <nh-icon name="chevron-left" />
+            </button>
+            <button
+              type="button"
+              class="lightbox__control"
+              aria-label="Próxima foto"
+              (click)="step(1)"
+            >
+              <nh-icon name="chevron-right" />
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </nh-dialog>
+}

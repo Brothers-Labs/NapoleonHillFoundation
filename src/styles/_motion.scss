@@ -1,0 +1,84 @@
+// Scroll reveal states. Elements start hidden only when JavaScript is running and motion is
+// allowed (`html.nh-motion`, set by an inline script in index.html), so crawlers, no-JS visitors
+// and reduced-motion users always get fully visible content.
+
+.nh-motion [data-reveal] {
+  transition:
+    opacity var(--nh-duration-reveal) var(--nh-ease-out),
+    transform var(--nh-duration-reveal) var(--nh-ease-out),
+    clip-path calc(var(--nh-duration-reveal) * 1.2) var(--nh-ease-out);
+  transition-delay: var(--nh-reveal-delay, 0ms);
+
+  &:not(.is-revealed) {
+    opacity: 0;
+  }
+
+  &[data-reveal='up']:not(.is-revealed) {
+    transform: translate3d(0, 2.5rem, 0);
+  }
+
+  &[data-reveal='mask'] {
+    clip-path: inset(0 0 0 0);
+
+    &:not(.is-revealed) {
+      opacity: 1;
+      clip-path: inset(100% 0 0 0);
+    }
+  }
+}
+
+@keyframes nh-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 110%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes nh-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.25rem, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes nh-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes nh-scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}

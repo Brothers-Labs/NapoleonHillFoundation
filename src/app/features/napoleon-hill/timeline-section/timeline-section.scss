@@ -1,0 +1,146 @@
+@use 'breakpoints' as bp;
+
+$dot-size: 0.625rem;
+
+:host {
+  display: block;
+}
+
+.timeline {
+  overflow: hidden;
+  padding-block: var(--nh-space-8);
+
+  @include bp.up(lg) {
+    padding-block: var(--nh-space-8) var(--nh-space-9);
+  }
+}
+
+// The book sits behind the heading on mobile and in its own left column on desktop.
+.timeline__book {
+  position: absolute;
+  top: var(--nh-space-6);
+  right: calc(-1 * var(--nh-space-6));
+  width: 9.5rem;
+  height: auto;
+  opacity: 0.55;
+  transform: rotate(6deg);
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
+
+  @include bp.up(lg) {
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: max(var(--nh-gutter), calc(50% - 40rem));
+    width: 15rem;
+    opacity: 0.9;
+    transform: none;
+  }
+}
+
+.timeline__inner {
+  position: relative;
+  z-index: var(--nh-z-base);
+  display: grid;
+  gap: var(--nh-space-7);
+
+  @include bp.up(lg) {
+    padding-left: 17rem;
+  }
+}
+
+.timeline__header {
+  display: grid;
+  gap: var(--nh-space-3);
+  max-width: 15rem;
+
+  @include bp.up(md) {
+    max-width: none;
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+.timeline__title {
+  font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.25rem);
+  line-height: 1.15;
+  color: var(--nh-gold);
+
+  @include bp.up(md) {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+}
+
+.timeline__lead {
+  font-size: var(--nh-text-sm);
+  color: var(--nh-text-muted);
+}
+
+.timeline__track {
+  position: relative;
+}
+
+// Rail spans from the first to the last dot; the fill scales with scroll.
+.timeline__rail {
+  position: absolute;
+  top: calc(#{$dot-size} / 2);
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: var(--nh-gold-muted);
+}
+
+.timeline__progress {
+  position: absolute;
+  inset: 0;
+  background: var(--nh-gold);
+  transform-origin: left;
+}
+
+.timeline__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline__item {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: var(--nh-space-2);
+  padding-inline: var(--nh-space-1);
+  text-align: center;
+}
+
+.timeline__dot {
+  position: relative;
+  z-index: var(--nh-z-base);
+  width: $dot-size;
+  height: $dot-size;
+  margin-bottom: var(--nh-space-3);
+  border-radius: 50%;
+  background: var(--nh-gold);
+  box-shadow: 0 0 0 4px rgb(198 161 91 / 18%);
+}
+
+.timeline__period {
+  font-family: var(--nh-font-serif);
+  font-size: clamp(1.125rem, 0.9rem + 1.2vw, 1.75rem);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--nh-gold);
+  font-variant-numeric: lining-nums;
+}
+
+.timeline__label {
+  font-size: var(--nh-text-2xs);
+  line-height: 1.45;
+  color: var(--nh-text-muted);
+
+  @include bp.up(md) {
+    font-size: var(--nh-text-sm);
+  }
+}

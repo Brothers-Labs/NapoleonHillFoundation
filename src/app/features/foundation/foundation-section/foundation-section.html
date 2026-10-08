@@ -1,0 +1,55 @@
+<section class="foundation nh-section nh-theme-light" aria-labelledby="foundation-title">
+  <div class="foundation__visual" aria-hidden="true">
+    <img
+      class="foundation__image"
+      [src]="content.image.src"
+      alt=""
+      [width]="content.image.width"
+      [height]="content.image.height"
+      loading="lazy"
+      decoding="async"
+      [nhParallax]="8"
+    />
+  </div>
+
+  <div class="foundation__content nh-container">
+    <p class="foundation__eyebrow" nhReveal="fade">{{ content.copy.eyebrow }}</p>
+    <h2 class="foundation__title" id="foundation-title" nhReveal [nhRevealDelay]="80">
+      {{ content.copy.title }}
+    </h2>
+    <span class="nh-rule" aria-hidden="true"></span>
+
+    @for (paragraph of content.paragraphs; track $index) {
+      <p class="foundation__text" nhReveal [nhRevealDelay]="120">{{ paragraph }}</p>
+    }
+
+    <ul class="foundation__highlights">
+      @for (highlight of content.highlights; track highlight; let index = $index) {
+        <li nhReveal [nhRevealDelay]="index * 70">
+          <nh-icon name="check" />
+          {{ highlight }}
+        </li>
+      }
+    </ul>
+
+    <div class="nh-actions" nhReveal [nhRevealDelay]="160">
+      @if (showPageLink()) {
+        <a class="nh-button nh-button--outline" routerLink="/fundacao">Conheça a fundação</a>
+      }
+      @if (internationalUrl) {
+        <a
+          class="nh-link"
+          [href]="internationalUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          nhTrack="external_foundation_click"
+          [nhTrackParams]="{ placement: 'foundation_section' }"
+        >
+          Visitar site internacional
+          <span class="nh-visually-hidden">(abre em uma nova aba)</span>
+          <nh-icon name="arrow-up-right" />
+        </a>
+      }
+    </div>
+  </div>
+</section>

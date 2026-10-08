@@ -1,0 +1,231 @@
+@use 'breakpoints' as bp;
+
+:host {
+  display: block;
+}
+
+// Mobile: the photograph fills the upper half and the copy sits below it, as in the mock.
+// Desktop: copy on the left, photograph bleeding off the right edge.
+.hero {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: max(100svh, 40rem);
+  padding-block: calc(var(--nh-header-height) + 12rem) var(--nh-space-8);
+  overflow: hidden;
+  background: var(--nh-black);
+
+  // Kept close to the photograph's aspect so both the portrait and the book stay in frame.
+  @include bp.up(lg) {
+    align-items: center;
+    min-height: clamp(34rem, 64svh, 42rem);
+    padding-block: calc(var(--nh-header-height) + var(--nh-space-7)) var(--nh-space-9);
+  }
+}
+
+.hero__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(60% 50% at 75% 30%, rgb(12 27 48 / 90%), transparent 70%), var(--nh-black);
+  will-change: transform;
+}
+
+.hero__image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 62%;
+  object-fit: cover;
+  object-position: 12% 20%;
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+
+  @include bp.up(md) {
+    height: 70%;
+    object-position: 30% 20%;
+  }
+
+  @include bp.up(lg) {
+    width: 70%;
+    height: 100%;
+    object-position: left center;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
+  }
+}
+
+// A diagonal shaft of light, like a projector beam crossing an archive.
+.hero__beam {
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 70%;
+  height: 140%;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgb(198 161 91 / 5%) 45%,
+    rgb(245 241 232 / 6%) 52%,
+    rgb(198 161 91 / 4%) 60%,
+    transparent 72%
+  );
+  filter: blur(18px);
+  transform: rotate(14deg);
+  transform-origin: top right;
+  mix-blend-mode: screen;
+
+  @include bp.motion-safe {
+    animation: beam-breathe 9s var(--nh-ease-in-out) infinite alternate;
+  }
+}
+
+.hero__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgb(5 8 12 / 45%) 0%,
+      transparent 22%,
+      transparent 70%,
+      var(--nh-black) 100%
+    ),
+    linear-gradient(90deg, rgb(5 8 12 / 70%) 0%, transparent 55%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: var(--nh-z-base);
+  display: grid;
+  justify-items: start;
+  gap: var(--nh-space-5);
+  will-change: transform, opacity;
+}
+
+.hero__title {
+  display: grid;
+  font-size: var(--nh-display-hero);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+// Each line clips its inner span so the text rises out of an invisible mask.
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+}
+
+.hero__line-inner {
+  display: inline-block;
+}
+
+.hero__line--accent {
+  color: var(--nh-gold);
+}
+
+.hero__divider {
+  width: 3rem;
+  height: 2px;
+  background: var(--nh-gold);
+}
+
+.hero__lead {
+  max-width: 24rem;
+  font-size: var(--nh-text-lg);
+  color: var(--nh-ivory);
+
+  @include bp.up(lg) {
+    max-width: 22rem;
+  }
+}
+
+.hero__actions {
+  width: 100%;
+  margin-top: var(--nh-space-2);
+
+  @include bp.up(sm) {
+    width: auto;
+  }
+}
+
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--nh-space-3) + var(--nh-safe-bottom));
+  z-index: var(--nh-z-base);
+  display: grid;
+  place-items: center;
+  width: var(--nh-touch-target);
+  height: var(--nh-touch-target);
+  transform: translateX(-50%);
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 2rem;
+  background: linear-gradient(var(--nh-gold), transparent);
+
+  @include bp.motion-safe {
+    animation: nh-scroll-cue 2.4s var(--nh-ease-in-out) infinite;
+  }
+}
+
+// Cinematic entrance: headline, divider, text, CTAs, then the photograph.
+:host-context(.nh-motion) {
+  .hero__line-inner {
+    animation: nh-rise 1200ms var(--nh-ease-out) 250ms both;
+  }
+
+  .hero__line--accent .hero__line-inner {
+    animation-delay: 420ms;
+  }
+
+  .hero__divider {
+    animation: divider-in 900ms var(--nh-ease-out) 700ms both;
+  }
+
+  .hero__lead {
+    animation: nh-fade-up 1000ms var(--nh-ease-out) 780ms both;
+  }
+
+  .hero__actions {
+    animation: nh-fade-up 1000ms var(--nh-ease-out) 940ms both;
+  }
+
+  .hero__image {
+    animation: image-in 2200ms var(--nh-ease-out) 150ms both;
+  }
+
+  .hero__scroll {
+    animation: nh-fade 1200ms var(--nh-ease-out) 1500ms both;
+  }
+}
+
+@keyframes beam-breathe {
+  from {
+    opacity: 0.6;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes image-in {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes divider-in {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+}

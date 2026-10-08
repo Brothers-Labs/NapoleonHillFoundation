@@ -1,0 +1,129 @@
+<section class="newsletter nh-section nh-theme-light" aria-labelledby="newsletter-title">
+  <div class="newsletter__inner nh-container">
+    <div class="newsletter__intro">
+      <h2 class="newsletter__title" id="newsletter-title">{{ copy.title }}</h2>
+      @if (copy.lead; as lead) {
+        <p class="newsletter__lead">{{ lead }}</p>
+      }
+    </div>
+
+    <form
+      class="newsletter__form"
+      [formGroup]="form"
+      novalidate
+      (ngSubmit)="submit()"
+      (focusin)="onFirstInteraction()"
+    >
+      <div class="newsletter__fields">
+        <div class="nh-field">
+          <label class="nh-visually-hidden" for="newsletter-name">Nome</label>
+          <input
+            id="newsletter-name"
+            class="nh-field__control nh-field__control--boxed"
+            type="text"
+            formControlName="name"
+            autocomplete="name"
+            placeholder="Seu nome"
+            maxlength="120"
+            [attr.aria-invalid]="isInvalid('name')"
+            [attr.aria-describedby]="isInvalid('name') ? 'newsletter-name-error' : null"
+          />
+          <nh-field-error
+            errorId="newsletter-name-error"
+            [errors]="form.controls.name.errors"
+            [isVisible]="isInvalid('name')"
+          />
+        </div>
+
+        <div class="nh-field">
+          <label class="nh-visually-hidden" for="newsletter-email">E-mail</label>
+          <input
+            id="newsletter-email"
+            class="nh-field__control nh-field__control--boxed"
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            inputmode="email"
+            placeholder="Seu e-mail"
+            maxlength="254"
+            [attr.aria-invalid]="isInvalid('email')"
+            [attr.aria-describedby]="isInvalid('email') ? 'newsletter-email-error' : null"
+          />
+          <nh-field-error
+            errorId="newsletter-email-error"
+            [errors]="form.controls.email.errors"
+            [isVisible]="isInvalid('email')"
+          />
+        </div>
+
+        <div class="nh-field">
+          <label class="nh-visually-hidden" for="newsletter-whatsapp">WhatsApp (opcional)</label>
+          <input
+            id="newsletter-whatsapp"
+            class="nh-field__control nh-field__control--boxed"
+            type="tel"
+            formControlName="whatsapp"
+            autocomplete="tel"
+            inputmode="tel"
+            placeholder="WhatsApp (opcional)"
+            maxlength="20"
+            [attr.aria-invalid]="isInvalid('whatsapp')"
+            [attr.aria-describedby]="isInvalid('whatsapp') ? 'newsletter-whatsapp-error' : null"
+          />
+          <nh-field-error
+            errorId="newsletter-whatsapp-error"
+            [errors]="form.controls.whatsapp.errors"
+            [isVisible]="isInvalid('whatsapp')"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="nh-button nh-button--primary newsletter__submit"
+          [attr.aria-disabled]="state() === 'submitting'"
+        >
+          {{ state() === 'submitting' ? 'Enviando…' : 'Quero participar' }}
+        </button>
+      </div>
+
+      <div class="nh-honeypot" aria-hidden="true">
+        <label for="newsletter-website">Não preencha este campo</label>
+        <input
+          id="newsletter-website"
+          type="text"
+          formControlName="website"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="nh-field newsletter__consent">
+        <label class="nh-checkbox">
+          <input
+            type="checkbox"
+            formControlName="consent"
+            [attr.aria-invalid]="isInvalid('consent')"
+            [attr.aria-describedby]="isInvalid('consent') ? 'newsletter-consent-error' : null"
+          />
+          <span>
+            Autorizo o envio de conteúdos e concordo com a
+            <a routerLink="/privacidade">Política de Privacidade</a>. Você pode cancelar o
+            recebimento a qualquer momento.
+          </span>
+        </label>
+        @if (isInvalid('consent')) {
+          <p class="nh-field__error" id="newsletter-consent-error">
+            É necessário autorizar o envio para continuar.
+          </p>
+        }
+      </div>
+
+      <nh-form-status
+        [state]="state()"
+        successMessage="Cadastro realizado. Em breve você receberá nossos conteúdos."
+        notConfiguredMessage="O cadastro online ainda não está disponível. Em breve você poderá se inscrever por aqui."
+        [errorMessage]="errorMessage()"
+      />
+    </form>
+  </div>
+</section>

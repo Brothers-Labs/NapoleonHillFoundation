@@ -1,0 +1,67 @@
+.nh-container {
+  width: 100%;
+  max-width: calc(var(--nh-container) + var(--nh-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--nh-gutter);
+
+  &--wide {
+    max-width: calc(var(--nh-container-wide) + var(--nh-gutter) * 2);
+  }
+
+  &--narrow {
+    max-width: calc(var(--nh-container-narrow) + var(--nh-gutter) * 2);
+  }
+}
+
+.nh-section {
+  position: relative;
+  padding-block: var(--nh-section-space);
+  isolation: isolate;
+}
+
+// Theme scopes: re-map semantic tokens so components stay theme-agnostic.
+.nh-theme-dark {
+  background: var(--nh-black);
+  color: var(--nh-text);
+}
+
+.nh-theme-midnight {
+  background: var(--nh-midnight);
+  color: var(--nh-text);
+}
+
+.nh-theme-navy {
+  background: var(--nh-deep-navy);
+  color: var(--nh-text);
+}
+
+.nh-theme-light,
+.nh-theme-paper {
+  --nh-text: var(--nh-ink);
+  --nh-text-muted: var(--nh-ink-muted);
+  --nh-text-subtle: rgb(22 22 22 / 58%);
+  --nh-line: var(--nh-ink-line);
+  --nh-line-strong: rgb(22 22 22 / 22%);
+  --nh-accent: var(--nh-gold-ink);
+  --nh-gold-muted: rgb(125 91 33 / 32%);
+  --nh-danger: var(--nh-danger-ink);
+
+  color: var(--nh-text);
+  color-scheme: light;
+}
+
+.nh-theme-light {
+  background: var(--nh-ivory);
+}
+
+.nh-theme-paper {
+  background: var(--nh-warm-white);
+}
+
+.nh-divider {
+  width: 100%;
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: var(--nh-line);
+}

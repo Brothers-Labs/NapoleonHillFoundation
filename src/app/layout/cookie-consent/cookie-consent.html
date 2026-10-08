@@ -1,0 +1,53 @@
+@if (isVisible()) {
+  <section class="consent" aria-labelledby="consent-title">
+    <div class="consent__body">
+      <h2 class="consent__title" id="consent-title">Sua privacidade</h2>
+      <p class="consent__text">
+        Usamos cookies necessários e, com a sua autorização, cookies de análise e de marketing.
+        Saiba mais na <a routerLink="/privacidade">Política de Privacidade</a>.
+      </p>
+
+      @if (isCustomizing()) {
+        <fieldset class="consent__options">
+          <legend class="nh-visually-hidden">Categorias de cookies</legend>
+          <label class="nh-checkbox">
+            <input type="checkbox" checked disabled />
+            <span><strong>Necessários.</strong> Sempre ativos.</span>
+          </label>
+          <label class="nh-checkbox">
+            <input
+              type="checkbox"
+              [checked]="allowsAnalytics()"
+              (change)="onToggle($event, 'analytics')"
+            />
+            <span><strong>Análise.</strong> Medem visitas e interações de forma agregada.</span>
+          </label>
+          <label class="nh-checkbox">
+            <input
+              type="checkbox"
+              [checked]="allowsMarketing()"
+              (change)="onToggle($event, 'marketing')"
+            />
+            <span><strong>Marketing.</strong> Permitem comunicação mais relevante.</span>
+          </label>
+        </fieldset>
+      }
+    </div>
+
+    <div class="consent__actions">
+      @if (isCustomizing()) {
+        <button type="button" class="nh-button nh-button--primary" (click)="saveSelection()">
+          Salvar preferências
+        </button>
+      } @else {
+        <button type="button" class="nh-button nh-button--primary" (click)="acceptAll()">
+          Aceitar todos
+        </button>
+        <button type="button" class="nh-button" (click)="rejectOptional()">
+          Somente necessários
+        </button>
+        <button type="button" class="nh-link" (click)="customize()">Personalizar</button>
+      }
+    </div>
+  </section>
+}

@@ -1,0 +1,51 @@
+<nh-dialog
+  variant="fullscreen"
+  labelledBy="mobile-menu-title"
+  closeLabel="Fechar menu"
+  [(open)]="open"
+>
+  <div class="menu nh-grain">
+    <div class="menu__top">
+      <a class="menu__brand" routerLink="/" (click)="close()">
+        <nh-brand-mark />
+        <span class="nh-visually-hidden">Página inicial</span>
+      </a>
+    </div>
+
+    <h2 id="mobile-menu-title" class="nh-visually-hidden">Menu</h2>
+
+    <nav class="menu__nav" aria-label="Menu principal">
+      <ol class="menu__list">
+        @for (item of entries; track item.entry.id; let index = $index) {
+          <li class="menu__item" [style.--item-index]="index">
+            <a class="menu__link" [routerLink]="item.entry.route" (click)="close()">
+              <span class="menu__number" aria-hidden="true">{{ item.number }}</span>
+              <span class="menu__label">{{ item.entry.label }}</span>
+            </a>
+            @if (item.entry.kind === 'group') {
+              <ul class="menu__children">
+                @for (child of item.entry.children; track child.id) {
+                  <li>
+                    <a class="menu__child-link" [routerLink]="child.route" (click)="close()">
+                      {{ child.label }}
+                    </a>
+                  </li>
+                }
+              </ul>
+            }
+          </li>
+        }
+      </ol>
+    </nav>
+
+    <div class="menu__footer">
+      <a
+        class="nh-button nh-button--primary menu__cta"
+        [routerLink]="callToAction.route"
+        (click)="close()"
+      >
+        {{ callToAction.label }}
+      </a>
+    </div>
+  </div>
+</nh-dialog>

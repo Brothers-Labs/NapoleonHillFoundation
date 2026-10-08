@@ -1,0 +1,16 @@
+{
+  "name": "The Napoleon Hill Foundation Brasil",
+  "short_name": "Napoleon Hill Brasil",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#05080c",
+  "theme_color": "#05080c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

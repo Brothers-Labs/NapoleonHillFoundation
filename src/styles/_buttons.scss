@@ -1,0 +1,151 @@
+@use 'breakpoints' as bp;
+
+.nh-button {
+  --nh-button-background: transparent;
+  --nh-button-color: var(--nh-text);
+  --nh-button-border: var(--nh-line-strong);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nh-space-3);
+  min-height: 3.25rem;
+  padding: var(--nh-space-2) var(--nh-space-6);
+  border: 1px solid var(--nh-button-border);
+  border-radius: var(--nh-radius-sm);
+  background: var(--nh-button-background);
+  color: var(--nh-button-color);
+  font-family: var(--nh-font-sans);
+  font-size: var(--nh-text-xs);
+  font-weight: 500;
+  letter-spacing: var(--nh-tracking-button);
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+
+  // Long labels may wrap on narrow phones instead of overflowing the viewport.
+  @include bp.up(sm) {
+    white-space: nowrap;
+  }
+  transition:
+    color var(--nh-duration-base) var(--nh-ease-out),
+    border-color var(--nh-duration-base) var(--nh-ease-out),
+    background-color var(--nh-duration-base) var(--nh-ease-out),
+    transform var(--nh-duration-fast) var(--nh-ease-out);
+
+  // Sweep fill: a single transform on a pseudo-element keeps the hover on the compositor.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--nh-gold);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--nh-duration-slow) var(--nh-ease-out);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  @include bp.hover {
+    &:not(:disabled):hover {
+      color: var(--nh-black);
+      border-color: var(--nh-gold);
+
+      &::before {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+  }
+
+  &--primary {
+    --nh-button-background: var(--nh-gold);
+    --nh-button-color: var(--nh-black);
+    --nh-button-border: var(--nh-gold);
+
+    &::before {
+      background: var(--nh-ivory);
+    }
+  }
+
+  &--light {
+    --nh-button-border: rgb(245 241 232 / 55%);
+    --nh-button-color: var(--nh-ivory);
+  }
+
+  &--outline {
+    --nh-button-border: var(--nh-accent);
+    --nh-button-color: var(--nh-accent);
+  }
+
+  &--block {
+    width: 100%;
+
+    @include bp.up(sm) {
+      width: auto;
+    }
+  }
+
+  &__icon {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+  }
+}
+
+// Inline text link with an animated underline.
+.nh-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nh-space-2);
+  min-height: var(--nh-touch-target);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--nh-text);
+  font-size: var(--nh-text-xs);
+  font-weight: 500;
+  letter-spacing: var(--nh-tracking-button);
+  text-transform: uppercase;
+  text-decoration: none;
+  background-image: linear-gradient(var(--nh-accent), var(--nh-accent));
+  background-size: 100% 1px;
+  background-position: 0 calc(100% - 0.65rem);
+  background-repeat: no-repeat;
+  transition:
+    background-size var(--nh-duration-slow) var(--nh-ease-out),
+    color var(--nh-duration-base);
+
+  @include bp.hover {
+    &:hover {
+      color: var(--nh-accent);
+      background-size: 0% 1px;
+      background-position: 100% calc(100% - 0.65rem);
+    }
+  }
+}
+
+.nh-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nh-space-3);
+
+  @include bp.up(sm) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--nh-space-4);
+  }
+}

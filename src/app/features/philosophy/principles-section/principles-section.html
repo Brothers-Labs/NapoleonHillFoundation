@@ -1,0 +1,82 @@
+@if (variant() === 'featured') {
+  <section class="featured nh-section nh-theme-navy nh-grain" aria-labelledby="principles-title">
+    <div class="nh-container">
+      <nh-section-heading
+        class="featured__heading"
+        [copy]="copy"
+        titleId="principles-title"
+        align="center"
+      />
+
+      <ul class="featured__list">
+        @for (index of featured; track index; let position = $index) {
+          @let principle = principles[index];
+          <li nhReveal [nhRevealDelay]="position * 80">
+            <button type="button" class="card" aria-haspopup="dialog" (click)="open(index)">
+              <nh-icon class="card__icon" [name]="principle.icon ?? 'star'" />
+              <span class="card__name">{{ principle.name }}</span>
+              <nh-icon class="card__chevron" name="chevron-right" />
+            </button>
+          </li>
+        }
+      </ul>
+
+      <div class="featured__cta" nhReveal>
+        <a class="nh-button nh-button--primary" routerLink="/filosofia">
+          Conheça todos os {{ principles.length }} princípios
+        </a>
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="principles nh-section nh-theme-paper" aria-labelledby="principles-title">
+    <div class="nh-container">
+      <nh-section-heading class="principles__heading" [copy]="copy" titleId="principles-title" />
+
+      <ol class="principles__list">
+        @for (principle of principles; track principle.order; let index = $index) {
+          <li nhReveal [nhRevealDelay]="(index % 3) * 70">
+            <button type="button" class="principle" aria-haspopup="dialog" (click)="open(index)">
+              <span class="principle__number" aria-hidden="true">{{
+                formatOrder(principle.order)
+              }}</span>
+              <span class="principle__text">
+                <span class="principle__name">{{ principle.name }}</span>
+                <span class="principle__original" lang="en">{{ principle.originalName }}</span>
+              </span>
+              <nh-icon class="principle__icon" name="plus" />
+            </button>
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+}
+
+<nh-dialog
+  variant="drawer"
+  labelledBy="principle-drawer-title"
+  [open]="isDrawerOpen()"
+  (openChange)="onDrawerChange($event)"
+>
+  @if (selected(); as principle) {
+    <article class="drawer">
+      <p class="drawer__number" aria-hidden="true">{{ formatOrder(principle.order) }}</p>
+      <p class="nh-eyebrow">Princípio {{ principle.order }} de {{ principles.length }}</p>
+      <h2 class="drawer__title" id="principle-drawer-title">{{ principle.name }}</h2>
+      <p class="drawer__original" lang="en">{{ principle.originalName }}</p>
+      <p class="drawer__summary">{{ principle.summary }}</p>
+
+      <div class="drawer__navigation">
+        <button type="button" class="nh-link" (click)="step(-1)">
+          <nh-icon name="chevron-left" />
+          Anterior
+        </button>
+        <button type="button" class="nh-link" (click)="step(1)">
+          Próximo
+          <nh-icon name="chevron-right" />
+        </button>
+      </div>
+    </article>
+  }
+</nh-dialog>

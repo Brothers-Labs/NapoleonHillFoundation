@@ -1,0 +1,261 @@
+<section class="contact nh-section nh-theme-paper" aria-labelledby="contact-title">
+  <div class="contact__inner nh-container">
+    <nh-section-heading [copy]="copy" titleId="contact-title" />
+
+    <div class="contact__card">
+      <div class="contact__channels-wrapper">
+        @if (hasChannels) {
+          <ul class="contact__channels">
+            @if (contact.phones.length) {
+              <li class="channel">
+                <nh-icon name="phone" />
+                <span class="channel__label">Telefone</span>
+                <span class="channel__value">
+                  @for (phone of contact.phones; track phone.value) {
+                    <a [href]="'tel:' + phone.value">{{ phone.display }}</a>
+                  }
+                </span>
+              </li>
+            }
+            @if (whatsappUrl && contact.whatsapp; as channel) {
+              <li class="channel">
+                <nh-icon name="whatsapp" />
+                <span class="channel__label">WhatsApp</span>
+                <span class="channel__value">
+                  <a
+                    [href]="whatsappUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    nhTrack="whatsapp_click"
+                    [nhTrackParams]="{ placement: 'contact_section' }"
+                  >
+                    {{ channel.displayNumber }}
+                    <span class="nh-visually-hidden">(abre em uma nova aba)</span>
+                  </a>
+                </span>
+              </li>
+            }
+            @if (contact.email; as email) {
+              <li class="channel">
+                <nh-icon name="mail" />
+                <span class="channel__label">E-mail</span>
+                <span class="channel__value"
+                  ><a [href]="'mailto:' + email">{{ email }}</a></span
+                >
+              </li>
+            }
+            @if (contact.address; as address) {
+              <li class="channel">
+                <nh-icon name="map-pin" />
+                <span class="channel__label">Endereço</span>
+                <address class="channel__value">
+                  {{ address.street }}<br />
+                  {{ address.locality }} – {{ address.region }}<br />
+                  CEP {{ address.postalCode }}
+                </address>
+              </li>
+            }
+          </ul>
+
+          @if (socialProfiles.length) {
+            <ul class="contact__social" aria-label="Redes sociais">
+              @for (profile of socialProfiles; track profile.network) {
+                <li>
+                  <a
+                    class="contact__social-link"
+                    [href]="profile.url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    [attr.aria-label]="profile.label + ' (abre em uma nova aba)'"
+                  >
+                    <nh-icon [name]="profile.network" />
+                  </a>
+                </li>
+              }
+            </ul>
+          }
+        } @else {
+          <p class="contact__note">
+            Os canais oficiais de atendimento serão publicados em breve. Enquanto isso, deixe sua
+            mensagem pelo formulário.
+          </p>
+        }
+      </div>
+
+      @if (mapUrl) {
+        <div class="contact__map">
+          @defer (on viewport) {
+            <iframe
+              [src]="mapUrl"
+              title="Mapa com a localização do endereço"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          } @placeholder {
+            <div class="contact__map-placeholder">
+              <nh-icon name="map-pin" />
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <form
+      class="nh-form contact__form"
+      [formGroup]="form"
+      novalidate
+      aria-labelledby="contact-form-title"
+      (ngSubmit)="submit()"
+      (focusin)="onFirstInteraction()"
+    >
+      <h3 class="contact__form-title" id="contact-form-title">Envie uma mensagem</h3>
+
+      <div class="contact__fields">
+        <div class="nh-field">
+          <label class="nh-field__label" for="contact-name">Nome</label>
+          <input
+            id="contact-name"
+            class="nh-field__control nh-field__control--boxed"
+            type="text"
+            formControlName="name"
+            autocomplete="name"
+            maxlength="120"
+            [attr.aria-invalid]="isInvalid('name')"
+            [attr.aria-describedby]="isInvalid('name') ? 'contact-name-error' : null"
+          />
+          <nh-field-error
+            errorId="contact-name-error"
+            [errors]="form.controls.name.errors"
+            [isVisible]="isInvalid('name')"
+          />
+        </div>
+
+        <div class="nh-field">
+          <label class="nh-field__label" for="contact-email">E-mail</label>
+          <input
+            id="contact-email"
+            class="nh-field__control nh-field__control--boxed"
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            inputmode="email"
+            maxlength="254"
+            [attr.aria-invalid]="isInvalid('email')"
+            [attr.aria-describedby]="isInvalid('email') ? 'contact-email-error' : null"
+          />
+          <nh-field-error
+            errorId="contact-email-error"
+            [errors]="form.controls.email.errors"
+            [isVisible]="isInvalid('email')"
+          />
+        </div>
+
+        <div class="nh-field">
+          <label class="nh-field__label" for="contact-whatsapp">
+            WhatsApp <span class="nh-field__optional">(opcional)</span>
+          </label>
+          <input
+            id="contact-whatsapp"
+            class="nh-field__control nh-field__control--boxed"
+            type="tel"
+            formControlName="whatsapp"
+            autocomplete="tel"
+            inputmode="tel"
+            maxlength="20"
+            [attr.aria-invalid]="isInvalid('whatsapp')"
+            [attr.aria-describedby]="isInvalid('whatsapp') ? 'contact-whatsapp-error' : null"
+          />
+          <nh-field-error
+            errorId="contact-whatsapp-error"
+            [errors]="form.controls.whatsapp.errors"
+            [isVisible]="isInvalid('whatsapp')"
+          />
+        </div>
+      </div>
+
+      <div class="nh-field">
+        <label class="nh-field__label" for="contact-subject">Assunto</label>
+        <input
+          id="contact-subject"
+          class="nh-field__control nh-field__control--boxed"
+          type="text"
+          formControlName="subject"
+          maxlength="160"
+          [attr.aria-invalid]="isInvalid('subject')"
+          [attr.aria-describedby]="isInvalid('subject') ? 'contact-subject-error' : null"
+        />
+        <nh-field-error
+          errorId="contact-subject-error"
+          [errors]="form.controls.subject.errors"
+          [isVisible]="isInvalid('subject')"
+        />
+      </div>
+
+      <div class="nh-field">
+        <label class="nh-field__label" for="contact-message">Mensagem</label>
+        <textarea
+          id="contact-message"
+          class="nh-field__control nh-field__control--boxed"
+          formControlName="message"
+          rows="5"
+          maxlength="4000"
+          [attr.aria-invalid]="isInvalid('message')"
+          [attr.aria-describedby]="isInvalid('message') ? 'contact-message-error' : null"
+        ></textarea>
+        <nh-field-error
+          errorId="contact-message-error"
+          [errors]="form.controls.message.errors"
+          [isVisible]="isInvalid('message')"
+        />
+      </div>
+
+      <div class="nh-honeypot" aria-hidden="true">
+        <label for="contact-website">Não preencha este campo</label>
+        <input
+          id="contact-website"
+          type="text"
+          formControlName="website"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="nh-field">
+        <label class="nh-checkbox">
+          <input
+            type="checkbox"
+            formControlName="consent"
+            [attr.aria-invalid]="isInvalid('consent')"
+            [attr.aria-describedby]="isInvalid('consent') ? 'contact-consent-error' : null"
+          />
+          <span>
+            Concordo com o tratamento dos meus dados para resposta a esta mensagem, conforme a
+            <a routerLink="/privacidade">Política de Privacidade</a>.
+          </span>
+        </label>
+        @if (isInvalid('consent')) {
+          <p class="nh-field__error" id="contact-consent-error">
+            É necessário aceitar para enviar a mensagem.
+          </p>
+        }
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          class="nh-button nh-button--primary nh-button--block"
+          [attr.aria-disabled]="state() === 'submitting'"
+        >
+          {{ state() === 'submitting' ? 'Enviando…' : 'Enviar mensagem' }}
+        </button>
+      </div>
+
+      <nh-form-status
+        [state]="state()"
+        successMessage="Mensagem enviada. Nossa equipe responderá em breve."
+        notConfiguredMessage="O envio pelo site ainda não está disponível. Fale conosco pelos canais acima."
+        [errorMessage]="errorMessage()"
+      />
+    </form>
+  </div>
+</section>

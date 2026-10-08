@@ -1,0 +1,17 @@
+<!-- Escape is handled natively by <dialog>; the click handler only adds backdrop dismissal. -->
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+<dialog
+  #dialog
+  class="dialog"
+  [attr.data-variant]="variant()"
+  [attr.aria-labelledby]="labelledBy()"
+  (close)="onNativeClose()"
+  (click)="onDialogClick($event)"
+>
+  <div class="dialog__panel">
+    <button type="button" class="dialog__close" [attr.aria-label]="closeLabel()" (click)="close()">
+      <nh-icon name="close" />
+    </button>
+    <ng-content />
+  </div>
+</dialog>

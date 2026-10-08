@@ -1,0 +1,143 @@
+@use 'breakpoints' as bp;
+
+:host {
+  display: block;
+}
+
+.programs__inner {
+  position: relative;
+  z-index: var(--nh-z-base);
+}
+
+.programs__heading {
+  margin-bottom: var(--nh-space-7);
+}
+
+// Mobile: list rows (icon, name, description, chevron). Desktop: six icon cards.
+.programs__grid {
+  display: grid;
+  gap: var(--nh-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include bp.up(md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--nh-space-4);
+  }
+
+  @include bp.up(xl) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.program {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'icon name chevron'
+    'icon description chevron';
+  align-items: center;
+  column-gap: var(--nh-space-4);
+  row-gap: 0.1rem;
+  height: 100%;
+  min-height: 4.5rem;
+  padding: var(--nh-space-3) var(--nh-space-4);
+  border: 1px solid var(--nh-line);
+  border-radius: var(--nh-radius-md);
+  background: rgb(5 8 12 / 35%);
+  color: var(--nh-text);
+  text-decoration: none;
+  transition:
+    border-color var(--nh-duration-base),
+    transform var(--nh-duration-slow) var(--nh-ease-out),
+    background-color var(--nh-duration-base);
+
+  @include bp.up(md) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'icon'
+      'name'
+      'description';
+    justify-items: center;
+    align-content: start;
+    row-gap: var(--nh-space-3);
+    padding: var(--nh-space-6) var(--nh-space-3);
+    text-align: center;
+  }
+
+  @include bp.hover {
+    &:hover {
+      border-color: var(--nh-gold-muted);
+      background: rgb(198 161 91 / 6%);
+      transform: translateY(-3px);
+    }
+  }
+}
+
+.program__icon {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--nh-gold-muted);
+  border-radius: var(--nh-radius-md);
+  color: var(--nh-gold);
+
+  nh-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  @include bp.up(md) {
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 0;
+
+    nh-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+  }
+}
+
+.program__name {
+  grid-area: name;
+  font-family: var(--nh-font-serif);
+  font-size: var(--nh-text-lg);
+  color: var(--nh-gold);
+
+  @include bp.up(md) {
+    color: var(--nh-text);
+  }
+}
+
+.program__description {
+  grid-area: description;
+  font-size: var(--nh-text-xs);
+  color: var(--nh-text-muted);
+}
+
+.program__chevron {
+  grid-area: chevron;
+  color: var(--nh-gold);
+
+  @include bp.up(md) {
+    display: none;
+  }
+}
+
+.programs__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--nh-space-7);
+
+  .nh-button {
+    width: 100%;
+
+    @include bp.up(sm) {
+      width: auto;
+    }
+  }
+}

@@ -1,0 +1,134 @@
+.nh-form {
+  display: grid;
+  gap: var(--nh-space-5);
+}
+
+.nh-form__row {
+  display: grid;
+  gap: var(--nh-space-5);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.nh-field {
+  display: grid;
+  gap: var(--nh-space-2);
+
+  &__label {
+    font-size: var(--nh-text-xs);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nh-text-muted);
+  }
+
+  &__optional {
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--nh-text-subtle);
+  }
+
+  &__control {
+    width: 100%;
+    min-height: 3.25rem;
+    padding: var(--nh-space-3) 0;
+    border: 0;
+    border-bottom: 1px solid var(--nh-line-strong);
+    border-radius: 0;
+    background: transparent;
+    color: var(--nh-text);
+    font-size: var(--nh-text-md);
+    transition: border-color var(--nh-duration-base) var(--nh-ease-out);
+
+    &::placeholder {
+      color: var(--nh-text-subtle);
+    }
+
+    &:focus {
+      outline: none;
+      border-bottom-color: var(--nh-accent);
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 1px 0 0 var(--nh-accent);
+    }
+
+    &[aria-invalid='true'] {
+      border-bottom-color: var(--nh-danger);
+    }
+
+    // Boxed variant used by the compact forms of the visual mock.
+    &--boxed {
+      padding: var(--nh-space-3) var(--nh-space-4);
+      border: 1px solid var(--nh-line-strong);
+      border-radius: var(--nh-radius-sm);
+      background: rgb(255 255 255 / 55%);
+      font-size: var(--nh-text-sm);
+
+      &:focus {
+        border-color: var(--nh-accent);
+      }
+
+      &[aria-invalid='true'] {
+        border-color: var(--nh-danger);
+      }
+    }
+  }
+
+  textarea.nh-field__control {
+    min-height: 8rem;
+    resize: vertical;
+  }
+
+  &__error {
+    font-size: var(--nh-text-sm);
+    color: var(--nh-danger);
+  }
+}
+
+.nh-checkbox {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: var(--nh-space-3);
+  font-size: var(--nh-text-sm);
+  color: var(--nh-text-muted);
+  cursor: pointer;
+
+  input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0.15rem 0 0;
+    accent-color: var(--nh-gold);
+    cursor: pointer;
+  }
+
+  a {
+    color: var(--nh-accent);
+  }
+}
+
+// Off-screen honeypot: real users never see or reach it; naive bots fill it in.
+.nh-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.nh-form-status {
+  padding: var(--nh-space-4) var(--nh-space-5);
+  border-left: 2px solid var(--nh-accent);
+  background: var(--nh-gold-glow);
+  font-size: var(--nh-text-sm);
+  color: var(--nh-text);
+
+  &--error {
+    border-left-color: var(--nh-danger);
+    background: rgb(224 140 125 / 10%);
+  }
+}

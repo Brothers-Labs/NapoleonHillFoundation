@@ -1,0 +1,39 @@
+<section class="brazil nh-section nh-grain" aria-labelledby="brazil-title">
+  <div class="brazil__visual" aria-hidden="true">
+    <img
+      class="brazil__image"
+      [src]="content.image.src"
+      alt=""
+      [width]="content.image.width"
+      [height]="content.image.height"
+      loading="lazy"
+      decoding="async"
+      [nhParallax]="10"
+    />
+  </div>
+
+  <div class="brazil__content nh-container">
+    <p class="nh-eyebrow" nhReveal="fade">{{ content.copy.eyebrow }}</p>
+    <h2 class="brazil__title" id="brazil-title" nhReveal [nhRevealDelay]="80">
+      <span>{{ content.copy.title }}</span>
+      <span class="nh-highlight">{{ content.titleAccent }}</span>
+    </h2>
+
+    @for (paragraph of content.paragraphs; track $index) {
+      <p class="brazil__text" nhReveal [nhRevealDelay]="140">{{ paragraph }}</p>
+    }
+
+    @if (content.representative; as representative) {
+      <div class="brazil__representative" nhReveal [nhRevealDelay]="200">
+        <p class="brazil__representative-name">{{ representative.name }}</p>
+        <p class="brazil__text">{{ representative.description }}</p>
+      </div>
+    }
+
+    @if (showPageLink()) {
+      <a class="nh-button nh-button--primary" routerLink="/brasil" nhReveal [nhRevealDelay]="240">
+        Conheça nossa representação
+      </a>
+    }
+  </div>
+</section>
